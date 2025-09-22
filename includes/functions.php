@@ -1487,25 +1487,16 @@ function getProfileImage($user, $conn = null) {
 
 // Get the appropriate redirect URL based on user role
 function getRedirectUrl($role, $fromRoot = true) {
-    $paths = [
-        'admin' => 'admin/dashboard.php',
-        'teacher' => 'teacher/dashboard.php',
-        'ngo' => 'ngo/dashboard.php',
-        'student' => 'student/dashboard.php'
+    // Define full URLs for each dashboard
+    $urls = [
+        'admin' => './admin/dashboard.php',
+        'teacher' => './teacher/dashboard.php',
+        'ngo' => './ngo/dashboard.php',
+        'student' => './student/dashboard.php'
     ];
     
-    $path = $paths[$role] ?? $paths['student'];
-    $baseUrl = '';
-    
-    if (!$fromRoot) {
-        // We're in a subdirectory (like /api/), so we need to go up one level
-        $baseUrl = '../';
-    } else {
-        // If we're already at the root, we might need to add the project folder
-        $baseUrl = getBaseUrl() . '/';
-    }
-    
-    return $baseUrl . $path;
+    // Return the complete URL for the given role (default to student if role not found)
+    return $urls[$role] ?? $urls['student'];
 }
 
 function getActivityIcon($activity_type) {
