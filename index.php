@@ -31,6 +31,8 @@ if(isLoggedIn()) {
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
@@ -212,6 +214,8 @@ if(isLoggedIn()) {
             background-size: cover;
             background-position: center;
             z-index: 0;
+            transform: translateZ(0);
+            will-change: transform;
         }
         
         .hero-overlay {
@@ -236,6 +240,11 @@ if(isLoggedIn()) {
             margin-bottom: 1.5rem;
         }
         
+        .typed-cursor {
+            font-size: 3.5rem;
+            color: #FFD54F;
+        }
+        
         .hero-description {
             font-size: 1.25rem;
             font-weight: 400;
@@ -248,6 +257,7 @@ if(isLoggedIn()) {
             position: absolute;
             opacity: 0.1;
             z-index: 0;
+            will-change: transform;
         }
         
         .blob-1 {
@@ -257,7 +267,7 @@ if(isLoggedIn()) {
             height: 400px;
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
             background-color: #28a745;
-            animation: blob-morph 15s linear infinite alternate;
+            animation: blob-morph 15s linear infinite alternate, parallax-float-right 8s ease-in-out infinite;
         }
         
         .blob-2 {
@@ -267,7 +277,7 @@ if(isLoggedIn()) {
             height: 300px;
             border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
             background-color: #17a2b8;
-            animation: blob-morph 20s linear infinite alternate;
+            animation: blob-morph 20s linear infinite alternate, parallax-float-left 10s ease-in-out infinite;
         }
         
         @keyframes blob-morph {
@@ -278,6 +288,18 @@ if(isLoggedIn()) {
             100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
         }
         
+        @keyframes parallax-float-right {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-20px) translateX(20px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+        
+        @keyframes parallax-float-left {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(20px) translateX(-20px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+        
         .hero-cta-btn {
             padding: 1rem 2.5rem;
             border-radius: var(--border-radius-full);
@@ -286,6 +308,9 @@ if(isLoggedIn()) {
             text-transform: uppercase;
             box-shadow: var(--shadow-lg);
             transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
         }
         
         .btn-outline-light {
@@ -296,6 +321,22 @@ if(isLoggedIn()) {
         .btn-success {
             background: var(--primary-gradient);
             border: none;
+        }
+        
+        .btn-success::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+            z-index: -1;
+        }
+        
+        .btn-success:hover::before {
+            left: 100%;
         }
         
         .btn-success:hover {
@@ -355,6 +396,9 @@ if(isLoggedIn()) {
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         
+        <!-- Particles Container -->
+        <div id="particles-js" class="position-absolute w-100 h-100" style="z-index: 1;"></div>
+        
         <!-- Animated Blob Shapes -->
         <div class="hero-blob blob-1 float-element-slow"></div>
         <div class="hero-blob blob-2 float-element-slow float-element-delay-1"></div>
@@ -363,7 +407,7 @@ if(isLoggedIn()) {
             <div class="row align-items-center">
                 <div class="col-lg-7">
                     <h1 class="hero-title" data-aos="fade-up">
-                        Learn, Act, Earn & <span class="text-warning">Make a Difference</span>
+                        <span id="typed-text"></span> <span class="text-warning">&amp; Make a Difference</span>
                     </h1>
                     <p class="hero-description" data-aos="fade-up" data-aos-delay="100">
                         GreenQuest transforms environmental education into an immersive journey with interactive lessons, 
@@ -418,7 +462,7 @@ if(isLoggedIn()) {
     </section>
     
     
-    <!-- Feature Cards with Hover Effects -->
+    <!-- Features Section -->
     <style>
         /* Feature Cards Styles */
         .feature-section {
@@ -449,6 +493,30 @@ if(isLoggedIn()) {
             left: -150px;
         }
         
+        .animated-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 30px 30px;
+            opacity: 0.3;
+            z-index: 0;
+            background-image: 
+                linear-gradient(45deg, rgba(40, 167, 69, 0.1) 25%, transparent 25%, transparent 75%, rgba(40, 167, 69, 0.1) 75%, rgba(40, 167, 69, 0.1)),
+                linear-gradient(-45deg, rgba(40, 167, 69, 0.1) 25%, transparent 25%, transparent 75%, rgba(40, 167, 69, 0.1) 75%, rgba(40, 167, 69, 0.1));
+            animation: pattern-shift 30s linear infinite;
+        }
+        
+        @keyframes pattern-shift {
+            0% {
+                background-position: 0 0, 15px 15px;
+            }
+            100% {
+                background-position: 60px 60px, 75px 75px;
+            }
+        }
+        
         .feature-card {
             background-color: #FFFFFF;
             border-radius: var(--border-radius-lg);
@@ -475,7 +543,7 @@ if(isLoggedIn()) {
         }
         
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
             box-shadow: var(--shadow-lg);
             border-color: transparent;
         }
@@ -504,6 +572,7 @@ if(isLoggedIn()) {
         
         .feature-card:hover .feature-icon {
             background-color: rgba(255, 255, 255, 0.2);
+            transform: rotateY(180deg);
         }
         
         .feature-icon i {
@@ -541,6 +610,8 @@ if(isLoggedIn()) {
             justify-content: center;
             box-shadow: var(--shadow-md);
             transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
         
         .badge-item::before {
@@ -558,7 +629,7 @@ if(isLoggedIn()) {
         }
         
         .badge-item:hover {
-            transform: translateY(-10px) scale(1.05);
+            transform: translateY(-10px) scale(1.05) rotateY(180deg);
         }
         
         .badge-item:hover::before {
@@ -568,6 +639,12 @@ if(isLoggedIn()) {
         .badge-icon {
             font-size: 3rem;
             color: #28a745;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .badge-item:hover .badge-icon {
+            transform: rotateY(-180deg);
         }
         
         .badge-name {
@@ -585,6 +662,7 @@ if(isLoggedIn()) {
     <section class="feature-section" id="features">
         <div class="feature-bg-shape shape-1"></div>
         <div class="feature-bg-shape shape-2"></div>
+        <div class="animated-pattern"></div>
         
         <div class="container">
             <div class="row text-center mb-5">
@@ -832,6 +910,9 @@ if(isLoggedIn()) {
     <!-- Stats Section -->
     <section class="stats-section" id="stats">
         <div class="stats-pattern"></div>
+        
+        <!-- Stats Particles Container -->
+        <div id="stats-particles" class="position-absolute w-100 h-100" style="z-index: 0; opacity: 0.5;"></div>
         
         <div class="container">
             <div class="row text-center mb-5">
@@ -2397,9 +2478,50 @@ if(isLoggedIn()) {
                 var target = this.hash;
                 var $target = $(target);
                 
-                $('html, body').animate({
-                    'scrollTop': $target.offset().top - 70
-                }, 800, 'swing');
+    <!-- Add Lottie.js for advanced animations -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                once: false,
+                mirror: true,
+                easing: 'ease-in-out-cubic',
+                delay: 100
+            });
+            
+            // Initialize GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Navbar Scroll Effect
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('.navbar').addClass('scrolled');
+                } else {
+                    $('.navbar').removeClass('scrolled');
+                }
+            });
+            
+            // Smooth scroll for navbar links
+            $('.navbar-nav .nav-link, .scroll-indicator a, .btn[href^="#"]').click(function(e) {
+                if(this.hash !== '') {
+                    e.preventDefault();
+                    
+                    const hash = this.hash;
+                    const $target = $(hash);
+                    
+                    if (!$target.length) return;
+                    
+                    $('html, body').animate({
+                        'scrollTop': $target.offset().top - 70
+                    }, 800, 'swing');
+                }
             });
             
             // Activate navbar links based on scroll position
@@ -2420,7 +2542,269 @@ if(isLoggedIn()) {
                 });
             });
             
-            // Counter Animation
+            // Typing Animation for Hero Section
+            var typed = new Typed('#typed-text', {
+                strings: ["Learn", "Act", "Earn", "Make a Difference"],
+                typeSpeed: 80,
+                backSpeed: 40,
+                backDelay: 1500,
+                startDelay: 500,
+                loop: true,
+                showCursor: true,
+                cursorChar: '|'
+            });
+            
+            // Initialize Particles.js for hero section
+            if (document.getElementById('particles-js')) {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 80,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#ffffff"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 5
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": false,
+                            "anim": {
+                                "enable": false,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 40,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#ffffff",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 2,
+                            "direction": "none",
+                            "random": false,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 1
+                                }
+                            },
+                            "bubble": {
+                                "distance": 400,
+                                "size": 40,
+                                "duration": 2,
+                                "opacity": 8,
+                                "speed": 3
+                            },
+                            "repulse": {
+                                "distance": 200,
+                                "duration": 0.4
+                            },
+                            "push": {
+                                "particles_nb": 4
+                            },
+                            "remove": {
+                                "particles_nb": 2
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+            
+            // Initialize Particles.js for stats section
+            if (document.getElementById('stats-particles')) {
+                particlesJS('stats-particles', {
+                    "particles": {
+                        "number": {
+                            "value": 50,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#28a745"
+                        },
+                        "shape": {
+                            "type": ["circle", "triangle", "polygon"],
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 6
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.2,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 5,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 40,
+                                "size_min": 1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": false
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 1.5,
+                            "direction": "top",
+                            "random": true,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "bubble"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "repulse"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "bubble": {
+                                "distance": 200,
+                                "size": 6,
+                                "duration": 2,
+                                "opacity": 0.8,
+                                "speed": 3
+                            },
+                            "repulse": {
+                                "distance": 200,
+                                "duration": 0.4
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+            
+            // Parallax Effect for Hero Section
+            gsap.to(".hero-bg", {
+                scrollTrigger: {
+                    trigger: ".hero-section",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                },
+                y: 100,
+                ease: "none"
+            });
+            
+            // Animate badge icons on scroll
+            gsap.to(".badge-item", {
+                scrollTrigger: {
+                    trigger: ".badge-showcase-section",
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                rotateY: 360,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power2.inOut"
+            });
+            
+            // Floating elements animation trigger
+            gsap.utils.toArray(".float-element").forEach(element => {
+                gsap.to(element, {
+                    y: -20,
+                    duration: 2,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            });
+            
+            gsap.utils.toArray(".float-element-slow").forEach(element => {
+                gsap.to(element, {
+                    y: -15,
+                    duration: 3,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    delay: Math.random()
+                });
+            });
+            
+            // Stats Section Animation
             function animateCounters() {
                 $('.stat-number').each(function () {
                     var $this = $(this);
@@ -2441,6 +2825,74 @@ if(isLoggedIn()) {
                 });
             }
             
+            // Timeline Animation
+            gsap.from(".timeline-item", {
+                scrollTrigger: {
+                    trigger: ".timeline",
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 0,
+                y: 50,
+                stagger: 0.3,
+                duration: 1
+            });
+            
+            // Timeline icons rotation
+            gsap.to(".timeline-icon", {
+                scrollTrigger: {
+                    trigger: ".timeline",
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                },
+                rotate: 360,
+                duration: 1,
+                stagger: 0.3,
+                ease: "back.out(1.7)"
+            });
+            
+            // Add 3D tilt effect to testimonial cards
+            $(".testimonial-card").on("mousemove", function(e) {
+                const card = $(this);
+                const rect = card[0].getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const deltaX = (x - centerX) / centerX;
+                const deltaY = (y - centerY) / centerY;
+                
+                card.css({
+                    transform: `perspective(1000px) rotateX(${-deltaY * 5}deg) rotateY(${deltaX * 5}deg) scale3d(1.02, 1.02, 1.02)`,
+                    transition: "transform 0.1s ease"
+                });
+            });
+            
+            $(".testimonial-card").on("mouseleave", function() {
+                $(this).css({
+                    transform: "perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)",
+                    transition: "transform 0.5s ease"
+                });
+            });
+            
+            // Event card animation
+            gsap.from(".event-card", {
+                scrollTrigger: {
+                    trigger: ".events-section",
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                },
+                x: -100,
+                opacity: 0,
+                stagger: 0.2,
+                duration: 1,
+                ease: "power3.out"
+            });
+            
             // Trigger counter animation when stats section is scrolled to
             var waypointStats = new Waypoint({
                 element: document.getElementById('stats'),
@@ -2456,19 +2908,6 @@ if(isLoggedIn()) {
                 $('.testimonial-indicator').removeClass('active');
                 $(this).addClass('active');
                 // You can add additional code here to implement testimonial carousel if needed
-            });
-            
-            // Add class to animate elements when they come into view
-            $(window).scroll(function() {
-                $('.float-element, .float-element-slow').each(function() {
-                    var elementPos = $(this).offset().top;
-                    var topOfWindow = $(window).scrollTop();
-                    var windowHeight = $(window).height();
-                    
-                    if (elementPos < topOfWindow + windowHeight - 100) {
-                        $(this).addClass('animated');
-                    }
-                });
             });
             
             // Newsletter Form Submission (prevent default for demo)
