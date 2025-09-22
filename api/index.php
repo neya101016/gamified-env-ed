@@ -73,6 +73,18 @@ function handleLogin($db) {
         return;
     }
     
+    // Verify captcha
+    if(!isset($data['captcha']) || empty($data['captcha'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Security verification is required']);
+        return;
+    }
+    
+    // Verify captcha with our custom implementation
+    if(!SimpleCaptcha::verify($data['captcha'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Security code verification failed. Please try again.']);
+        return;
+    }
+    
     // Create user object
     $user = new User($db);
     $user->email = $data['email'];

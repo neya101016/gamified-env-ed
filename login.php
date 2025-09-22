@@ -54,6 +54,25 @@ if(isLoggedIn()) {
                                 <input class="form-check-input" id="remember" name="remember" type="checkbox" />
                                 <label class="form-check-label" for="remember">Remember me</label>
                             </div>
+                            <div class="mb-3">
+                                <?php 
+                                    // Generate a new captcha code
+                                    $captchaCode = SimpleCaptcha::generateCode(6);
+                                    // Generate the captcha HTML
+                                    $captchaHTML = SimpleCaptcha::generateCaptchaHTML($captchaCode);
+                                ?>
+                                <label for="captcha" class="form-label">Security Verification</label>
+                                <div class="d-flex flex-column mb-2">
+                                    <div id="captchaDisplay" class="mb-2">
+                                        <?php echo $captchaHTML; ?>
+                                    </div>
+                                    <button type="button" id="refreshCaptcha" class="btn btn-sm btn-outline-secondary align-self-end" title="Refresh Captcha">
+                                        <i class="fas fa-sync-alt"></i> New Code
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Enter the code shown above" required>
+                                <div class="form-text">Enter the code shown above (case insensitive)</div>
+                            </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary btn-lg">Login</button>
                             </div>
@@ -80,6 +99,21 @@ if(isLoggedIn()) {
     <script src="assets/js/main.js"></script>
     <script>
         $(document).ready(function() {
+            // Handle captcha refresh button
+            $('#refreshCaptcha').on('click', function() {
+                $.ajax({
+                    url: 'ajax/refresh_captcha.php',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if(response.status === 'success') {
+                            $('#captchaDisplay').html(response.captcha_html);
+                            $('#captcha').val(''); // Clear the input field
+                        }
+                    }
+                });
+            });
+            
             // Handle login form submission
             $('#loginForm').on('submit', function(e) {
                 e.preventDefault();
@@ -87,13 +121,31 @@ if(isLoggedIn()) {
                 // Hide any previous alerts
                 $('#loginAlert').addClass('d-none').text('');
                 
+                // Get captcha value
+                var captchaValue = $('#captcha').val();
+                
+                // Check if captcha was entered
+                if (!captchaValue) {
+                    // Show error for captcha
+                    $('#loginAlert').removeClass('d-none').text('Please enter the security code.');
+                    
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Verification Required',
+                        text: 'Please enter the security code shown above.'
+                    });
+                    
+                    return;
+                }
+                
                 $.ajax({
                     url: 'api/index.php?action=login',
                     type: 'POST',
                     data: {
                         email: $('#email').val(),
                         password: $('#password').val(),
-                        remember: $('#remember').is(':checked') ? 1 : 0
+                        remember: $('#remember').is(':checked') ? 1 : 0,
+                        captcha: captchaValue
                     },
                     dataType: 'json',
                     success: function(response) {

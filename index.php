@@ -161,6 +161,44 @@ if(isLoggedIn()) {
             font-size: 3rem;
             color: var(--primary-color);
         }
+        
+        /* Timeline Styles - NEW */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background-color: #e9ecef;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #198754;
+            color: white;
+            z-index: 1;
+            box-shadow: 0 0 0 5px #e9ecef;
+        }
+        
+        /* Counter Animation - NEW */
+        .counter {
+            animation: count-up 3s ease-out forwards;
+        }
+        
+        @keyframes count-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -178,6 +216,12 @@ if(isLoggedIn()) {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#events">Events</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#testimonials">Testimonials</a>
@@ -324,6 +368,52 @@ if(isLoggedIn()) {
         </div>
     </section>
     
+    <!-- Stats Section - NEW -->
+    <section class="py-5 bg-light" id="stats">
+        <div class="container">
+            <div class="row text-center mb-4">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="fw-bold">Our Environmental Impact</h2>
+                    <p class="lead text-muted">Together we're making a measurable difference</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center py-5">
+                            <h3 class="display-4 fw-bold text-success counter">24,780</h3>
+                            <p class="text-muted mb-0">Trees Planted</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center py-5">
+                            <h3 class="display-4 fw-bold text-primary counter">15,642</h3>
+                            <p class="text-muted mb-0">Students Engaged</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center py-5">
+                            <h3 class="display-4 fw-bold text-warning counter">487</h3>
+                            <p class="text-muted mb-0">Schools Participating</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center py-5">
+                            <h3 class="display-4 fw-bold text-danger counter">127,340</h3>
+                            <p class="text-muted mb-0">kg CO₂ Reduced</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Testimonials Section -->
     <section class="testimonial-section" id="testimonials">
         <div class="container">
@@ -426,6 +516,230 @@ if(isLoggedIn()) {
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works Section - NEW -->
+    <section class="py-5 bg-white" id="how-it-works">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="fw-bold">How GreenQuest Works</h2>
+                    <p class="lead text-muted">Follow these simple steps to start your environmental journey</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="timeline position-relative">
+                        <!-- Timeline Item 1 -->
+                        <div class="row g-0 justify-content-end justify-content-md-around align-items-center">
+                            <div class="col-5 col-sm-4 position-relative">
+                                <div class="p-3 text-end">
+                                    <h5 class="fw-bold">Create Your Account</h5>
+                                    <p class="mb-0 text-muted">Register with your email or school credentials to join the GreenQuest community.</p>
+                                </div>
+                            </div>
+                            <div class="col-2 text-center">
+                                <div class="timeline-circle d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-user-plus fa-lg text-white"></i>
+                                </div>
+                            </div>
+                            <div class="col-5 col-sm-4"></div>
+                        </div>
+                        
+                        <!-- Timeline Item 2 -->
+                        <div class="row g-0 justify-content-end justify-content-md-around align-items-center">
+                            <div class="col-5 col-sm-4"></div>
+                            <div class="col-2 text-center">
+                                <div class="timeline-circle d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-book-open fa-lg text-white"></i>
+                                </div>
+                            </div>
+                            <div class="col-5 col-sm-4 position-relative">
+                                <div class="p-3">
+                                    <h5 class="fw-bold">Complete Lessons</h5>
+                                    <p class="mb-0 text-muted">Explore interactive environmental lessons and test your knowledge with quizzes.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Timeline Item 3 -->
+                        <div class="row g-0 justify-content-end justify-content-md-around align-items-center">
+                            <div class="col-5 col-sm-4 position-relative">
+                                <div class="p-3 text-end">
+                                    <h5 class="fw-bold">Take on Eco Challenges</h5>
+                                    <p class="mb-0 text-muted">Participate in real-world environmental challenges to make a tangible impact.</p>
+                                </div>
+                            </div>
+                            <div class="col-2 text-center">
+                                <div class="timeline-circle d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-tasks fa-lg text-white"></i>
+                                </div>
+                            </div>
+                            <div class="col-5 col-sm-4"></div>
+                        </div>
+                        
+                        <!-- Timeline Item 4 -->
+                        <div class="row g-0 justify-content-end justify-content-md-around align-items-center">
+                            <div class="col-5 col-sm-4"></div>
+                            <div class="col-2 text-center">
+                                <div class="timeline-circle d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-medal fa-lg text-white"></i>
+                                </div>
+                            </div>
+                            <div class="col-5 col-sm-4 position-relative">
+                                <div class="p-3">
+                                    <h5 class="fw-bold">Earn Rewards</h5>
+                                    <p class="mb-0 text-muted">Collect badges, eco-points, and climb the leaderboards as you learn and contribute.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Timeline Item 5 -->
+                        <div class="row g-0 justify-content-end justify-content-md-around align-items-center">
+                            <div class="col-5 col-sm-4 position-relative">
+                                <div class="p-3 text-end">
+                                    <h5 class="fw-bold">Make a Difference</h5>
+                                    <p class="mb-0 text-muted">Track your environmental impact and inspire others to join the cause.</p>
+                                </div>
+                            </div>
+                            <div class="col-2 text-center">
+                                <div class="timeline-circle d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-globe-americas fa-lg text-white"></i>
+                                </div>
+                            </div>
+                            <div class="col-5 col-sm-4"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-5">
+                        <a href="register.php" class="btn btn-success btn-lg rounded-pill px-5">Start Your Journey Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Upcoming Events Section - NEW -->
+    <section class="py-5 bg-light" id="events">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="fw-bold">Upcoming Events & Challenges</h2>
+                    <p class="lead text-muted">Join our environmental activities and make a real-world impact</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4 bg-primary text-white d-flex flex-column align-items-center justify-content-center text-center p-3">
+                                <h3 class="mb-0 fw-bold">OCT</h3>
+                                <h2 class="display-4 mb-0 fw-bold">12</h2>
+                                <p class="mb-0">2025</p>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="badge bg-success">Challenge</span>
+                                        <small class="text-muted"><i class="fas fa-users me-1"></i> 358 Participants</small>
+                                    </div>
+                                    <h5 class="card-title fw-bold">City-Wide Clean-Up Challenge</h5>
+                                    <p class="card-text">Join students from across the city for our biggest clean-up event of the year. Registration is open to all schools and community groups.</p>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                        <span>Multiple Locations</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4 bg-success text-white d-flex flex-column align-items-center justify-content-center text-center p-3">
+                                <h3 class="mb-0 fw-bold">NOV</h3>
+                                <h2 class="display-4 mb-0 fw-bold">5</h2>
+                                <p class="mb-0">2025</p>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="badge bg-info">Webinar</span>
+                                        <small class="text-muted"><i class="fas fa-users me-1"></i> 175 Registered</small>
+                                    </div>
+                                    <h5 class="card-title fw-bold">Climate Action Workshop</h5>
+                                    <p class="card-text">Learn practical strategies for advocating environmental policy changes in your school and community from expert activists.</p>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-video text-danger me-2"></i>
+                                        <span>Online - Zoom</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4 bg-warning text-white d-flex flex-column align-items-center justify-content-center text-center p-3">
+                                <h3 class="mb-0 fw-bold">NOV</h3>
+                                <h2 class="display-4 mb-0 fw-bold">18</h2>
+                                <p class="mb-0">2025</p>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="badge bg-warning text-dark">Competition</span>
+                                        <small class="text-muted"><i class="fas fa-users me-1"></i> 42 Teams</small>
+                                    </div>
+                                    <h5 class="card-title fw-bold">EcoHack: Innovation Challenge</h5>
+                                    <p class="card-text">A hackathon for students to develop innovative solutions to local environmental problems using technology and creativity.</p>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                        <span>Tech Hub Convention Center</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card border-0 shadow h-100">
+                        <div class="row g-0">
+                            <div class="col-md-4 bg-danger text-white d-flex flex-column align-items-center justify-content-center text-center p-3">
+                                <h3 class="mb-0 fw-bold">DEC</h3>
+                                <h2 class="display-4 mb-0 fw-bold">3</h2>
+                                <p class="mb-0">2025</p>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="badge bg-primary">Challenge</span>
+                                        <small class="text-muted"><i class="fas fa-users me-1"></i> 246 Participants</small>
+                                    </div>
+                                    <h5 class="card-title fw-bold">30-Day Plastic-Free Challenge</h5>
+                                    <p class="card-text">Take on this month-long challenge to reduce your plastic consumption and document your journey on GreenQuest.</p>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-globe text-danger me-2"></i>
+                                        <span>Virtual Event</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                <a href="register.php" class="btn btn-outline-success rounded-pill px-4">View All Events <i class="fas fa-arrow-right ms-2"></i></a>
             </div>
         </div>
     </section>
@@ -536,6 +850,8 @@ if(isLoggedIn()) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+    <!-- Waypoints -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <!-- Custom JS -->
     <script>
         $(document).ready(function() {
@@ -577,6 +893,45 @@ if(isLoggedIn()) {
                     }
                 });
             });
+            
+            // Counter animation for stats
+            function animateCounters() {
+                $('.counter').each(function () {
+                    var $this = $(this);
+                    var countTo = parseInt($this.text().replace(/,/g, ''));
+                    
+                    $({ countNum: 0 }).animate({
+                        countNum: countTo
+                    }, {
+                        duration: 2000,
+                        easing: 'swing',
+                        step: function() {
+                            $this.text(Math.floor(this.countNum).toLocaleString());
+                        },
+                        complete: function() {
+                            $this.text(this.countNum.toLocaleString());
+                        }
+                    });
+                });
+            }
+            
+            // Trigger counter animation when stats section is scrolled to
+            var statsSection = $('#stats');
+            if (statsSection.length) {
+                var waypoint = new Waypoint({
+                    element: document.getElementById('stats'),
+                    handler: function() {
+                        animateCounters();
+                        this.destroy();
+                    },
+                    offset: '80%'
+                });
+            }
+            
+            // Fallback - start counter animation if Waypoint is not available
+            setTimeout(function() {
+                animateCounters();
+            }, 1000);
         });
     </script>
 </body>
