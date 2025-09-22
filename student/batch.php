@@ -58,8 +58,11 @@ $query = "SELECT s.school_id,
           WHERE r.role_name = 'student'
           GROUP BY s.school_id
           ORDER BY total_points DESC";
+
+// First execute the rank reset query
+$db->query("SET @rank := 0");
 $stmt = $db->prepare($query);
-$stmt->execute($db->query("SET @rank := 0"));
+$stmt->execute();
 $schools_ranking = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $school_rank = 'N/A';
