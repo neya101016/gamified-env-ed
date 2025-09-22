@@ -121,7 +121,7 @@ $active_schools = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../assets/css/admin-style.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
     <style>
         .stats-card {
             border-radius: 10px;
@@ -591,5 +591,8 @@ $active_schools = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
         });
     </script>
+    
+    <!-- Footer -->
+    <?php include_once '../includes/footer.php'; ?>
 </body>
 </html>

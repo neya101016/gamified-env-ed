@@ -20,7 +20,7 @@ $userQuery = "
         u.email,
         u.profile_image,
         u.bio,
-        u.created_at,
+        u.join_date as created_at,
         r.role_name,
         COALESCE(s.school_name, 'Independent') AS school_name,
         s.school_id

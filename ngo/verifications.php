@@ -23,7 +23,7 @@ if (!in_array($status, $valid_statuses)) {
 // Build the query based on filter
 $query = "SELECT cp.*, uc.user_id, uc.challenge_id, uc.status, 
           u.name as student_name, c.title as challenge_title, c.eco_points,
-          cp.submitted_at, cp.verdict, cp.verified_at, cp.verified_by
+          cp.submitted_at, cp.verdict, cp.verified_at, cp.verifier_id
           FROM challenge_proofs cp
           JOIN user_challenges uc ON cp.user_challenge_id = uc.user_challenge_id
           JOIN users u ON uc.user_id = u.user_id
@@ -60,7 +60,7 @@ $stmt->execute();
 $stats = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Get verifier names
-$verifier_ids = array_filter(array_column($verifications, 'verified_by'));
+$verifier_ids = array_filter(array_column($verifications, 'verifier_id'));
 if (!empty($verifier_ids)) {
     $placeholders = implode(',', array_fill(0, count($verifier_ids), '?'));
     $query = "SELECT user_id, name FROM users WHERE user_id IN ($placeholders)";
@@ -183,9 +183,9 @@ if (!empty($verifier_ids)) {
                                     </td>
                                     <td>
                                         <?php 
-                                            if ($verification['verified_by']) {
-                                                echo isset($verifiers[$verification['verified_by']]) ? 
-                                                    htmlspecialchars($verifiers[$verification['verified_by']]) : 'Unknown';
+                                            if ($verification['verifier_id']) {
+                                                echo isset($verifiers[$verification['verifier_id']]) ? 
+                                                    htmlspecialchars($verifiers[$verification['verifier_id']]) : 'Unknown';
                                                 echo '<br><small class="text-muted">' . date('M d, Y', strtotime($verification['verified_at'])) . '</small>';
                                             } else {
                                                 echo '-';

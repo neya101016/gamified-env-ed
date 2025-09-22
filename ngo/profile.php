@@ -129,9 +129,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Update database with new image path
                 $image_path = "uploads/profile_images/" . $filename;
                 
-                $query = "UPDATE users SET profile_image = :profile_image, updated_at = NOW() WHERE user_id = :user_id";
+                $query = "UPDATE users SET profile_pic = :profile_pic, updated_at = NOW() WHERE user_id = :user_id";
                 $stmt = $db->prepare($query);
-                $stmt->bindParam(':profile_image', $image_path);
+                $stmt->bindParam(':profile_pic', $image_path);
                 $stmt->bindParam(':user_id', $user_id);
                 
                 if ($stmt->execute()) {

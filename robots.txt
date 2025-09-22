@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /
-
-# Disallow all robots from crawling the site during development
-# Remove this file or modify it when the site is ready for production

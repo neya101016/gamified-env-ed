@@ -55,7 +55,7 @@ $stats = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Get participants
 $query = "SELECT uc.*, u.name as student_name, u.profile_pic, u.school_id, s.name as school_name,
-          cp.proof_id, cp.proof_url, cp.submitted_at, cp.verified_by, cp.verdict, cp.verification_date, cp.metadata
+          cp.proof_id, cp.proof_url, cp.submitted_at, cp.verifier_id, cp.verdict, cp.verified_at, cp.metadata
           FROM user_challenges uc
           JOIN users u ON uc.user_id = u.user_id
           LEFT JOIN schools s ON u.school_id = s.school_id

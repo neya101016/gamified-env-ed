@@ -1394,13 +1394,13 @@ function getRecentActivities($conn, $limit = 10) {
 
     // Get recent user registrations
     $query3 = "SELECT 
-                u.created_at,
+                u.join_date as created_at,
                 u.user_id,
                 u.name as user_name,
                 'Joined GreenQuest' as description,
                 'register' as activity_type
               FROM users u
-              ORDER BY u.created_at DESC
+              ORDER BY u.join_date DESC
               LIMIT " . intval($limit/3);
     $stmt3 = $conn->prepare($query3);
     $stmt3->execute();

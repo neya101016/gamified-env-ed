@@ -163,6 +163,8 @@ $students = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="../assets/css/admin.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../assets/css/admin-style.css">
     <style>

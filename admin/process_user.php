@@ -108,7 +108,7 @@ exit();
  */
 function addUser($conn, $first_name, $last_name, $email, $password, $role, $is_active) {
     try {
-        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, role, is_active, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
+        $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, password, role, is_active, join_date) VALUES (?, ?, ?, ?, ?, ?, NOW())");
         $stmt->bind_param("sssssi", $first_name, $last_name, $email, $password, $role, $is_active);
         return $stmt->execute();
     } catch (Exception $e) {

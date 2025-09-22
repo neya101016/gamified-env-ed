@@ -46,7 +46,7 @@ $query = "SELECT
     COUNT(DISTINCT uc.user_id) as students_engaged,
     COUNT(DISTINCT c.challenge_id) as challenges_verified,
     SUM(c.eco_points) as total_points_awarded,
-    SUM(c.co2_reduction) as total_co2_saved
+    0 as total_co2_saved
 FROM challenge_proofs cp
 JOIN user_challenges uc ON cp.user_challenge_id = uc.user_challenge_id
 JOIN challenges c ON uc.challenge_id = c.challenge_id
@@ -64,10 +64,10 @@ $query = "SELECT
     c.challenge_id,
     c.title,
     c.eco_points,
-    c.co2_reduction,
+    0 as co2_reduction,
     COUNT(cp.proof_id) as completions,
     SUM(c.eco_points) as total_points,
-    SUM(c.co2_reduction) as total_co2_saved
+    0 as total_co2_saved
 FROM challenges c
 LEFT JOIN user_challenges uc ON c.challenge_id = uc.challenge_id
 LEFT JOIN challenge_proofs cp ON uc.user_challenge_id = cp.user_challenge_id 
@@ -87,7 +87,7 @@ $query = "SELECT
     DATE_FORMAT(cp.verified_at, '%Y-%m') as month,
     COUNT(*) as completions,
     SUM(c.eco_points) as points_awarded,
-    SUM(c.co2_reduction) as co2_saved
+    0 as co2_saved
 FROM challenge_proofs cp
 JOIN user_challenges uc ON cp.user_challenge_id = uc.user_challenge_id
 JOIN challenges c ON uc.challenge_id = c.challenge_id

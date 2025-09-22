@@ -63,7 +63,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <div class="nav-item text-nowrap">
             <a class="nav-link px-3" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="<?php echo getProfileImage($_SESSION['user_id']); ?>" alt="User" class="rounded-circle me-2" width="32" height="32">
-                <?php echo $_SESSION['first_name']; ?>
+                <?php echo $_SESSION['name']; ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="profile.php"><i class="fas fa-user-circle me-2"></i> Profile</a></li>
